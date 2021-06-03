@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+      <title>Exercises tracker | Julienmcoding</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+      <link href="style.css" rel="stylesheet" type="text/css">
+   </head>
+
+   <body>
+    <h1>Exercises tracker</h1>
+    <hr />
+    <div class="container">
+    <h3>Explanation:</h3>
+    <ul>
+        <li>- You can POST to /api/users with form data username to create a new user. The returned response will be an object with username and _id properties. -</li>
+        <li>- You can make a GET request to /api/users to get an array of all users. Each element in the array is an object containing a user's username and _id. -</li>
+        <li>- You can POST to /api/users/:_id/exercises with form data description, duration, and optionally date. If no date is supplied, the current date will be used. The response returned will be the user object with the exercise fields added. -</li>
+        <li>- You can make a GET request to /api/users/:_id/logs to retrieve a full exercise log of any user. The returned response will be the user object with a log array of all the exercises added. Each log item has the description, duration, and date properties. -</li>
+        <li>- You can add from, to and limit parameters to a /api/users/:_id/logs request to retrieve part of the log of any user. from and to are dates in yyyy-mm-dd format. limit is an integer of how many logs to send back. -</li>
+    </ul>   
+
+    <form action="/api/users" method="post">
+        <h3>Create a New User</h3>
+        <p><code>POST /api/users</code></p>
+        <input id="username" type="text" name="username" placeholder="username">
+        <input type="submit" value="submit">
+    </form>
+
+    <form id="exercise-form" action="/api/users/:id/exercises" method="post">
+        <h3>Add exercices</h3>
+        <input id="user_id" type="text" name="user_id" placeholder="user_id">
+        <input id="description" type="text" name="description" placeholder="description">
+        <input id="duration" type="number" name="duration" placeholder="duration (minutes)">
+        <input id="date" type="date" name="date" placeholder="date (yyyy-mm-dd)">
+        <input type="submit" value="submit"> 
+    </form>
+
+    </div>
+    <div class="footer">
+      <p>
+        By Julienmcoding and freeCodeCamp.org</a>
+      </p>
+    </div>
+    <script>
+        const exerciseForm = document.getElementById("exercise-form");
+  
+        exerciseForm.addEventListener("submit", () => {
+          const _id = document.getElementById("user_id").value;
+          exerciseForm.action = `/api/users/${_id}/exercises`;
+  
+          exerciseForm.submit();
+        });
+      </script>
+  </body>
+</html>

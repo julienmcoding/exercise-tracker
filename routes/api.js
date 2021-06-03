@@ -1,10 +1,11 @@
 const apiRouter = require('express').Router();
 const pool = require('../db');
+const bodyParser = require('body-parser');
 
 module.exports = apiRouter;
 
 // create a new user
-apiRouter.post('/users', async (req, res) => {
+apiRouter.post('/users', bodyParser.urlencoded({ extended: false }), async (req, res) => {
     const { username } = req.body;
     try {
         await pool.query('INSERT INTO users (username, _id) VALUES ($1, uuid_generate_v4())', [username]);
@@ -28,7 +29,7 @@ apiRouter.get('/users', async (req, res) => {
 
 
 // create an exercice for an user
-apiRouter.post('/users/:_id/exercises', async (req, res) => {
+apiRouter.post('/users/:_id/exercises', bodyParser.urlencoded({ extended: false }), async (req, res) => {
     let { description, duration, date } = req.body;
     const _id = req.params._id;
     //date is optional
