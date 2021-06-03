@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') { require('dotenv').config() };
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -12,5 +12,6 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
+
 
 module.exports = pool;
