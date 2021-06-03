@@ -20,7 +20,7 @@
         <li>- You can add from, to and limit parameters to a /api/users/:_id/logs request to retrieve part of the log of any user. from and to are dates in yyyy-mm-dd format. limit is an integer of how many logs to send back. -</li>
     </ul>   
 
-    <form action="/api/users" method="post">
+    <form id="user-form" action="/api/users" method="post">
         <h3>Create a New User</h3>
         <p><code>POST /api/users</code></p>
         <input id="username" type="text" name="username" placeholder="username">
@@ -50,6 +50,15 @@
           exerciseForm.action = `/api/users/${_id}/exercises`;
   
           exerciseForm.submit();
+        });
+
+        const userForm = document.getElementById("user-form");
+  
+        userForm.addEventListener("submit", () => {
+          const username = document.getElementById("username").value;
+          userForm.action = `/api/users`;
+  
+          userForm.submit();
         });
       </script>
   </body>
