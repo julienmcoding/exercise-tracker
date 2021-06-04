@@ -2,10 +2,12 @@ const apiRouter = require('express').Router();
 const pool = require('../db');
 const bodyParser = require('body-parser');
 
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 module.exports = apiRouter;
 
 // create a new user
-apiRouter.post('/users', bodyParser.urlencoded({ extended: false }), async (req, res) => {
+apiRouter.post('/users', urlencodedParser, async (req, res) => {
     console.log('accessing to the post user request');
     const { username } = req.body;
     console.log(username);
