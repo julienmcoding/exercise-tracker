@@ -45,7 +45,7 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
     let { description, duration, date } = req.body;
     const _id = req.params._id;
     //date is optional
-    if(date == undefined) {
+    if(req.body.date == undefined) {
         date = 'hello i am julien';
         //date = new Date().toUTCString();
     };
