@@ -47,11 +47,6 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
     //date is optional
     if(req.body.date == '') {
         date = new Date().toUTCString();
-        let day = dateObj.getUTCDate();
-        let year = dateObj.getUTCFullYear();
-        let dayLetter = dateObj.toLocaleString('en-us', {  weekday: 'short' });
-        let monthLetter = dateObj.toLocaleString('en-us', {  month: 'short' });
-        date = `${dayLetter} ${monthLetter} ${day} ${year}`;
     };
     try {
         const user = await pool.query('SELECT * FROM users WHERE _id = $1', [_id]);
@@ -62,6 +57,8 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
         };
         await pool.query('INSERT INTO exercices (user_id, description, duration, date) VALUES ($1, $2, $3, $4)',
         [_id, description, duration, date]);
+        const newExercise = await pool.query('SELECT * FROM exercices WHERE user_id = $1 AND description = $2',
+        [_id, description]);
         res.status(201).json({
             _id: user.rows[0]._id,
             username: user.rows[0].username,
@@ -73,14 +70,14 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
         console.error(error.message);
     };  
 })
-/*var dateObj = new Date();
+var dateObj = new Date();
 var day = dateObj.getUTCDate();
 var year = dateObj.getUTCFullYear();
 let dayLetter = dateObj.toLocaleString('en-us', {  weekday: 'short' });
 let monthLetter = dateObj.toLocaleString('en-us', {  month: 'short' });
 
 newdate = `${dayLetter} ${monthLetter} ${day} ${year}`;
-console.log(newdate);*/
+console.log(newdate);
 
 // get all exercices by users
 // you can add optional parameters (from, to and limit)
