@@ -49,7 +49,6 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
         date = new Date().toUTCString();
     };
     try {
-        res.json(date);
         const user = await pool.query('SELECT * FROM users WHERE _id = $1', [_id]);
         if (user.rowCount < 1) {
             return res.status(404).send({
