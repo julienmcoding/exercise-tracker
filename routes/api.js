@@ -49,7 +49,8 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
         date = new Date().toUTCString();
     };
     try {
-        const user = await pool.query('SELECT * FROM users WHERE _id = $1', [_id]);
+        res.json(date);
+        /*const user = await pool.query('SELECT * FROM users WHERE _id = $1', [_id]);
         if (user.rowCount < 1) {
             return res.status(404).send({
                 message: "There is no user with this id"
@@ -59,7 +60,7 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
         [_id, description, duration, date]);
         const newExercise = await pool.query('SELECT * FROM exercices WHERE user_id = $1 AND description = $2',
         [_id, description]);
-        res.status(201).send(newExercise.rows[0]);
+        res.status(201).send(newExercise.rows[0]);*/
     } catch (error) {
         console.error(error.message);
     };  
