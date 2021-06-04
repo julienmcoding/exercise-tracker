@@ -10,9 +10,10 @@ apiRouter.post('/users', async (req, res) => {
     const { username } = req.body;
     console.log(username);
     try {
-        await pool.query('INSERT INTO users (username, _id) VALUES ($1, uuid_generate_v4())', [username]);
+        res.json(username);
+        /*await pool.query('INSERT INTO users (username, _id) VALUES ($1, uuid_generate_v4())', [username]);
         const newUser = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-        res.status(201).send(newUser.rows[0]);
+        res.status(201).send(newUser.rows[0]);*/
     } catch (error) {
         console.error(error.message);
     };
