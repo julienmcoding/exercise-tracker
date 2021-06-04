@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 module.exports = apiRouter;
 
 // create a new user
-apiRouter.post('/users', bodyParser.urlencoded({ extended: false }), async (req, res) => {
+apiRouter.post('/users/new-user', bodyParser.urlencoded({ extended: false }), async (req, res) => {
     const { username } = req.body.username;
     try {
         await pool.query('INSERT INTO users (username, _id) VALUES ($1, uuid_generate_v4())', [username]);

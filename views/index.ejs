@@ -20,9 +20,9 @@
         <li>- You can add from, to and limit parameters to a /api/users/:_id/logs request to retrieve part of the log of any user. from and to are dates in yyyy-mm-dd format. limit is an integer of how many logs to send back. -</li>
     </ul>   
 
-    <form id="user-form" action="/api/users" method="POST">
+    <form id="user-form" action="/api/users/new-user" method="POST">
         <h3>Create a New User</h3>
-        <p><code>POST /api/users</code></p>
+        <p><code>POST /api/users/new-user</code></p>
         <input id="username" type="text" name="username" placeholder="username">
         <input type="submit" value="submit">
     </form>
