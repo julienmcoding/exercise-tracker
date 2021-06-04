@@ -1,6 +1,16 @@
 const apiRouter = require('express').Router();
 const pool = require('../db');
 
+function create_UUID(){
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+};
+
 
 module.exports = apiRouter;
 
@@ -8,17 +18,16 @@ module.exports = apiRouter;
 apiRouter.post('/users', async (req, res) => {
     console.log('accessing to the post user request');
     const { username } = req.body;
+    const uuid = create_UUID();
     console.log(username);
     try {
-        res.json(username);
-        /*await pool.query('INSERT INTO users (username, _id) VALUES ($1, uuid_generate_v4())', [username]);
+        await pool.query('INSERT INTO users (username, _id) VALUES ($1, $2)', [username, uuid]);
         const newUser = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-        res.status(201).send(newUser.rows[0]);*/
+        res.status(201).send(newUser.rows[0]);
     } catch (error) {
         console.error(error.message);
     };
 });
-
 
 // get all users
 apiRouter.get('/users', async (req, res) => {
