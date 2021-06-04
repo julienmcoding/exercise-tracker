@@ -46,8 +46,7 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
     const _id = req.params._id;
     //date is optional
     if(req.body.date == '') {
-        date = new Date();
-        //.toUTCString();
+        date = new Date().toUTCString();
     };
     try {
         const user = await pool.query('SELECT * FROM users WHERE _id = $1', [_id]);
@@ -60,7 +59,14 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
         [_id, description, duration, date]);
         const newExercise = await pool.query('SELECT * FROM exercices WHERE user_id = $1 AND description = $2',
         [_id, description]);
-        res.status(201).send(newExercise.rows[0]);
+        //res.status(201).send(newExercise.rows[0]);
+        res.status(201).json({
+            _id: user.rows[0]._id,
+            username: user.rows[0].username,
+            date: date,
+            duration: duration,
+            description: description
+        });
     } catch (error) {
         console.error(error.message);
     };  
