@@ -1,13 +1,11 @@
 const apiRouter = require('express').Router();
 const pool = require('../db');
-const bodyParser = require('body-parser');
 
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 module.exports = apiRouter;
 
 // create a new user
-apiRouter.post('/users', urlencodedParser, async (req, res) => {
+apiRouter.post('/users', async (req, res) => {
     console.log('accessing to the post user request');
     const { username } = req.body;
     console.log(username);
@@ -33,7 +31,7 @@ apiRouter.get('/users', async (req, res) => {
 
 
 // create an exercice for an user
-apiRouter.post('/users/:_id/exercises', bodyParser.urlencoded({ extended: false }), async (req, res) => {
+apiRouter.post('/users/:_id/exercises', async (req, res) => {
     let { description, duration, date } = req.body;
     const _id = req.params._id;
     //date is optional
