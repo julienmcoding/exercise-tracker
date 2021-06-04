@@ -7,7 +7,7 @@ module.exports = apiRouter;
 // create a new user
 apiRouter.post('/users', bodyParser.urlencoded({ extended: false }), async (req, res) => {
     console.log('accessing to the post user request');
-    const { username } = req.body.username;
+    const { username } = req.body;
     console.log(username);
     try {
         await pool.query('INSERT INTO users (username, _id) VALUES ($1, uuid_generate_v4())', [username]);
