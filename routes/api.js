@@ -46,7 +46,8 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
     const _id = req.params._id;
     //date is optional
     if(req.body.date == '') {
-        date = new Date().toUTCString();
+        date = new Date();
+        //.toUTCString();
     };
     try {
         const user = await pool.query('SELECT * FROM users WHERE _id = $1', [_id]);
