@@ -48,10 +48,10 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
     if(req.body.date == '') {
         let convert = new Date().toISOString().substring(0,10);
         date = new Date(convert).toDateString();
-    } /*else {
-        let convert = new Date(req.body.date).toISOString().substring(0,10);
+    } else {
+        let convert = req.body.date.toISOString().substring(0,10);
         date = new Date(convert).toDateString();
-    }; */
+    }; 
     try {
         const user = await pool.query('SELECT * FROM users WHERE _id = $1', [_id]);
         if (user.rowCount < 1) {
