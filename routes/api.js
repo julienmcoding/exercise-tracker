@@ -49,7 +49,7 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
         let convert = new Date().toISOString().substring(0,10);
         date = new Date(convert).toDateString();
     } else {
-        let convert = req.body.date.toISOString().substring(0,10);
+        let convert = date.toISOString().substring(0,10);
         date = new Date(convert).toDateString();
     }; 
     try {
