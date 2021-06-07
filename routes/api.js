@@ -46,7 +46,11 @@ apiRouter.post('/users/:_id/exercises', async (req, res) => {
     const _id = req.params._id;
     //date is optional
     if(req.body.date == '') {
-        date = new Date().toUTCString();
+        let convert = new Date().toISOString().substring(0,10);
+        date = new Date(convert).toDateString();
+    }else {
+        let convert = new Date(req.body.date).toISOString().substring(0,10);
+        date = new Date(convert).toDateString();
     };
     try {
         const user = await pool.query('SELECT * FROM users WHERE _id = $1', [_id]);
@@ -78,6 +82,9 @@ let monthLetter = dateObj.toLocaleString('en-us', {  month: 'short' });
 
 newdate = `${dayLetter} ${monthLetter} ${day} ${year}`;
 console.log(newdate);
+let newnewdate = new Date().toISOString().substring(0,10);
+let result = new Date(newnewdate).toDateString();
+console.log(result);
 
 // get all exercices by users
 // you can add optional parameters (from, to and limit)
