@@ -1,4 +1,4 @@
-# exercise-tracker
+# Exercise-tracker
 FreeCodeCamp APIs and Microservices Projects - Exercise tracker
 
 # Concept:
